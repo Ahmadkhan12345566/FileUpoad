@@ -2,69 +2,80 @@
 <head>
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <style>
-        img{
-            margin: 5%;
+
+        legend.scheduler-border {
+            width:inherit;
+            padding:0 10px;
+            border-bottom:none;
+        }
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+            height: 80%;
         }
         .left-marg{
             margin-left: 10px;
             margin-top: 10px;
         }
-        .marg_group{
-            margin-top: 15%;
-        }
+
         #display_image{
             display: none;
         }
-        #logo{
-            margin-left: 20%;
+       .class_button{
+           top: 50%;
+       }
+        #display_image{
+            margin-left: 8%;
+            margin-right: 8%;
         }
-
 
     </style>
 </head>
 <body>
    <div class="container">
-    <div class="form-group row">
-        <div class="col-md-6 left-marg"> <input type="file" id="select_img" onchange="PreviewImage();"></div>
-        <div class="col-md-1 left-marg"> <button > Process </button></div>
-        <div class="col-md-1 left-marg"> <button >  Save </button></div>
-        <div class="col-md-1 left-marg"> <button >Next </button></div>
 
-    </div>
-    <div id="imag_div" class="col-md-9">
+       <div class="form-group row">
+        <div class="col-md-6 left-marg"> <input  type="file" id="select_img" onchange="PreviewImage();"></div>
+        <div class="col-md-1 left-marg"> <button class="btn-md " >  Save </button></div>
+
+       </div>
+       <div id="imag_div" class="col-md-9 col-sm-9 col-xs-9">
         <fieldset class="scheduler-border">
-            <legend class="scheduler-border"> Input Form </legend>
-            <img  id="display_image" src="raw/s.JPG" alt="Image" height="70%" width="85%" >
+            <legend class="scheduler-border" > Input Form </legend>
+            <button class="glyphicon glyphicon-menu-left class_button col-sm-1 "></button>
+            <button class="glyphicon glyphicon-menu-right pull-right  col-sm-1 class_button"></button>
+            <img  id="display_image" src="raw/s.JPG" alt="Image" height="90%" width="99%" class="col-sm-10" >
+
          </fieldset>
     </div>
-    <div class="col-md-3">
-        <fieldset>
-            <legend> Extractes Text </legend>
 
-
+       <div class="col-md-3 col-sm-3 col-xs-3 ">
+        <fieldset  class="scheduler-border">
+            <legend class="scheduler-border"> Extractes Text </legend>
             <div class="form-group marg_group">
                 <label for="name">Name</label>
                  <input type="text" class="form-control" id="name" >
             </div>
-            <div class="form-group marg_group">
+            <div class="form-group margin_group">
                 <label for="father_name">Father Name</label>
                  <input type="text" class="form-control" id="father_name">
             </div>
-            <div class="form-group marg_group">
+            <div class="form-group margin_group">
                 <label for="cnic_no">Cnic NO</label>
                 <input type="text" class="form-control" id="cnic_no">
             </div>
-            <div  class="form-group marg_group ">
-               <img id="logo" src="raw/s.JPG" height="10%" width="60%">
-            </div>
 
         </fieldset>
-
     </div>
+       <div class="form-group row">
+           <div class="col-md-12 " id="process_div"> <button class="btn-md pull-right"> Process </button></div>
+       </div>
    </div>
 </body>
 <script type="text/javascript">
-
     function PreviewImage() {
         var imgReader = new FileReader();
         imgReader.readAsDataURL(document.getElementById("select_img").files[0]);
