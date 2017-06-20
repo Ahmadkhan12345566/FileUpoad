@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8541d3a-414a-4f5b-8c0b-03e18e41c0b7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.html" afterPath="$PROJECT_DIR$/main.html" />
-    </list>
+    <list default="true" id="a8541d3a-414a-4f5b-8c0b-03e18e41c0b7" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +15,8 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="44" column="59" lean-forward="false" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+            <state relative-caret-position="279">
+              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -359,15 +355,15 @@
       <updated>1497865815058</updated>
       <workItem from="1497865816543" duration="7204000" />
       <workItem from="1497884485830" duration="419000" />
-      <workItem from="1497945683887" duration="10452000" />
+      <workItem from="1497945683887" duration="10667000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18075000" />
+    <option name="totallyTimeSpent" value="18290000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1371" height="735" extended-state="0" />
+    <frame x="-7" y="0" width="1371" height="735" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2509225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -377,7 +373,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4128" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -456,8 +452,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="44" column="59" lean-forward="false" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+        <state relative-caret-position="279">
+          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
