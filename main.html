@@ -1,0 +1,79 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
+    <style>
+        img{
+            margin: 5%;
+        }
+        .left-marg{
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        .marg_group{
+            margin-top: 15%;
+        }
+        #display_image{
+            display: none;
+        }
+        #logo{
+            margin-left: 20%;
+        }
+
+
+    </style>
+</head>
+<body>
+   <div class="container">
+    <div class="form-group row">
+        <div class="col-md-6 left-marg"> <input type="file" id="select_img" onchange="PreviewImage();"></div>
+        <div class="col-md-1 left-marg"> <button > Process </button></div>
+        <div class="col-md-1 left-marg"> <button >  Save </button></div>
+        <div class="col-md-1 left-marg"> <button >Next </button></div>
+
+    </div>
+    <div id="imag_div" class="col-md-9">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border"> Input Form </legend>
+            <img  id="display_image" src="raw/s.JPG" alt="Image" height="70%" width="85%" >
+         </fieldset>
+    </div>
+    <div class="col-md-3">
+        <fieldset>
+            <legend> Extractes Text </legend>
+
+
+            <div class="form-group marg_group">
+                <label for="name">Name</label>
+                 <input type="text" class="form-control" id="name" >
+            </div>
+            <div class="form-group marg_group">
+                <label for="father_name">Father Name</label>
+                 <input type="text" class="form-control" id="father_name">
+            </div>
+            <div class="form-group marg_group">
+                <label for="cnic_no">Cnic NO</label>
+                <input type="text" class="form-control" id="cnic_no">
+            </div>
+            <div  class="form-group marg_group ">
+               <img id="logo" src="raw/s.JPG" height="10%" width="60%">
+            </div>
+
+        </fieldset>
+
+    </div>
+   </div>
+</body>
+<script type="text/javascript">
+
+    function PreviewImage() {
+        var imgReader = new FileReader();
+        imgReader.readAsDataURL(document.getElementById("select_img").files[0]);
+
+        imgReader.onload = function (oFREvent) {
+            document.getElementById("display_image").src = oFREvent.target.result;
+            document.getElementById('display_image').style.display = "block";
+        };
+    };
+
+</script>
+</html>
