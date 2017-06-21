@@ -1,6 +1,9 @@
+
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
 
         legend.scheduler-border {
@@ -15,37 +18,15 @@
             margin: 0 0 1.5em 0 !important;
             -webkit-box-shadow: 0px 0px 0px 0px #000;
             box-shadow: 0px 0px 0px 0px #000;
-            height: auto;
+            width: auto;
         }
 
-        .left-marg {
-            margin-left: 10px;
-            margin-top: 10px;
+        .button_div {
+            margin-top: 25%;
         }
 
-        #display_image {
-
-        }
-
-        .buttons {
-
-            vertical-align: middle;
-        }
-
-        button.ls-nav-prev {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            bottom: 0;
-            margin: auto;
-        }
-
-        button.ls-nav-next {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            margin: auto;
+        .container {
+            margin-top: 5px;
         }
 
     </style>
@@ -53,43 +34,49 @@
 <body>
 <div class="container">
     <div class="row ">
-        <div class="col-md-6 left-marg">
+        <div class="col-md-6 ">
             <input type="file" id="select_img" onchange="PreviewImage();">
-        </div>
-        <div class="col-md-1 left-marg">
-            <button class="btn btn-md "> Save</button>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-9 col-sm-12 col-lg-9">
-            <div class="row">
+        <div class="col-md-9 col-sm-12 col-lg-9 col-xs-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border"> Input Form</legend>
+                <div class="row">
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 button_div">
+                        <button class="btn-lg"><span class="glyphicon glyphicon-menu-left "></span></button>
+                    </div>
 
-                <fieldset class="scheduler-border">
-                    <legend class="scheduler-border"> Input Form</legend>
-                    <div class="btn-group-vertical col-md-1 col-sm-1 buttons" style="vertical-align: middle; ">
-                        <button class="btn glyphicon glyphicon-menu-left  "></button>
+                    <div class="col-md-10 col-lg-10 col-sm-8 col-xs-8 ">
+                        <div class="thumbnail"><img id="display_image" src="raw/s.JPG" alt="Image">
+                        </div>
                     </div>
-                    <div class="col-md-10"><img id="display_image" src="raw/s.JPG" alt="Image" height="auto"
-                                                width="100%"></div>
-                    <div class="btn-group-vertical col-md-1 ls-nav-next">
-                        <button class="btn glyphicon glyphicon-menu-right"></button>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1 button_div">
+                        <button class="btn-lg"><span class="glyphicon glyphicon-menu-right"></span></button>
                     </div>
-                </fieldset>
-            </div>
+
+                </div>
+            </fieldset>
+
         </div>
-        <div class="col-md-3 col-sm-12 col-lg-3">
+        <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Extractes Text</legend>
-                <div class="form-group marg_group">
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+
+                    </button>
+                </div>
+                <div class="form-group ">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name">
                 </div>
-                <div class="form-group margin_group">
+                <div class="form-group ">
                     <label for="father_name">Father Name</label>
                     <input type="text" class="form-control" id="father_name">
                 </div>
-                <div class="form-group margin_group">
+                <div class="form-group ">
                     <label for="cnic_no">Cnic NO</label>
                     <input type="text" class="form-control" id="cnic_no">
                 </div>
@@ -98,23 +85,26 @@
         </div>
 
     </div>
-    <div class="form-group row">
-        <div class="col-md-12 " id="process_div">
-            <button class="btn btn-md pull-right"> Process</button>
+    <div class=" row">
+        <div class="col-md-9 " id="process_div">
+            <button class="btn btn-primary pull-right"> Process</button>
         </div>
     </div>
 </div>
-</body>
 <script type="text/javascript">
+
     function PreviewImage() {
         var imgReader = new FileReader();
         imgReader.readAsDataURL(document.getElementById("select_img").files[0]);
 
         imgReader.onload = function (oFREvent) {
             document.getElementById("display_image").src = oFREvent.target.result;
-            document.getElementById('display_image').style.display = "block";
+
         };
-    };
+    }
+
 
 </script>
+</body>
+
 </html>
