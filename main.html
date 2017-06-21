@@ -4,30 +4,34 @@
     <style>
 
         legend.scheduler-border {
-            width:inherit;
-            padding:0 10px;
-            border-bottom:none;
+            width: inherit;
+            padding: 0 10px;
+            border-bottom: none;
         }
+
         fieldset.scheduler-border {
             border: 1px groove #ddd !important;
             padding: 0 1.4em 1.4em 1.4em !important;
             margin: 0 0 1.5em 0 !important;
-            -webkit-box-shadow:  0px 0px 0px 0px #000;
-            box-shadow:  0px 0px 0px 0px #000;
-            height:auto;
+            -webkit-box-shadow: 0px 0px 0px 0px #000;
+            box-shadow: 0px 0px 0px 0px #000;
+            height: auto;
         }
-        .left-marg{
+
+        .left-marg {
             margin-left: 10px;
             margin-top: 10px;
         }
 
-        #display_image{
+        #display_image {
 
         }
-        .buttons{
+
+        .buttons {
 
             vertical-align: middle;
         }
+
         button.ls-nav-prev {
             position: absolute;
             left: 0;
@@ -36,7 +40,7 @@
             margin: auto;
         }
 
-       button.ls-nav-next {
+        button.ls-nav-next {
             position: absolute;
             right: 0;
             top: 0;
@@ -47,50 +51,59 @@
     </style>
 </head>
 <body>
-   <div class="container">
-       <div class="row ">
-           <div class="col-md-6 left-marg">
-               <input  type="file" id="select_img" onchange="PreviewImage();">
-           </div>
-           <div class="col-md-1 left-marg">
-               <button class="btn btn-md " >  Save </button>
-           </div>
-       </div>
+<div class="container">
+    <div class="row ">
+        <div class="col-md-6 left-marg">
+            <input type="file" id="select_img" onchange="PreviewImage();">
+        </div>
+        <div class="col-md-1 left-marg">
+            <button class="btn btn-md "> Save</button>
+        </div>
+    </div>
 
-       <div  class="row">
-           <div class="col-md-9 col-sm-12 col-lg-9">
-               <fieldset class="scheduler-border">
-               <legend class="scheduler-border" > Input Form </legend>
-               <div class="btn-group-vertical col-md-1 buttons" style="vertical-align: middle; "><button class="btn glyphicon glyphicon-menu-left  "></button></div>
-               <div class="col-md-10" ><img  id="display_image" src="raw/s.JPG" alt="Image" height="auto" width="100%" ></div>
-               <div class="btn-group-vertical col-md-1 ls-nav-next" >  <button class="btn glyphicon glyphicon-menu-right"></button></div>
-                   <div class="btn-group-vertical col-md-1" > </div>
-          </fieldset>
-           </div>
-           <div class="col-md-3 col-sm-12 col-lg-3">
-               <fieldset  class="scheduler-border">
-                   <legend class="scheduler-border"> Extractes Text </legend>
-                   <div class="form-group marg_group">
-                       <label for="name">Name</label>
-                       <input type="text" class="form-control" id="name" >
-                   </div>
-                   <div class="form-group margin_group">
-                       <label for="father_name">Father Name</label>
-                       <input type="text" class="form-control" id="father_name">
-                   </div>
-                   <div class="form-group margin_group">
-                       <label for="cnic_no">Cnic NO</label>
-                       <input type="text" class="form-control" id="cnic_no">
-                   </div>
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-lg-9">
+            <div class="row">
 
-               </fieldset>
-           </div>
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border"> Input Form</legend>
+                    <div class="btn-group-vertical col-md-1 col-sm-1 buttons" style="vertical-align: middle; ">
+                        <button class="btn glyphicon glyphicon-menu-left  "></button>
+                    </div>
+                    <div class="col-md-10"><img id="display_image" src="raw/s.JPG" alt="Image" height="auto"
+                                                width="100%"></div>
+                    <div class="btn-group-vertical col-md-1 ls-nav-next">
+                        <button class="btn glyphicon glyphicon-menu-right"></button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12 col-lg-3">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border"> Extractes Text</legend>
+                <div class="form-group marg_group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group margin_group">
+                    <label for="father_name">Father Name</label>
+                    <input type="text" class="form-control" id="father_name">
+                </div>
+                <div class="form-group margin_group">
+                    <label for="cnic_no">Cnic NO</label>
+                    <input type="text" class="form-control" id="cnic_no">
+                </div>
+
+            </fieldset>
+        </div>
 
     </div>
-       <div class="form-group row">
-           <div class="col-md-12 " id="process_div"> <button class="btn btn-md pull-right"> Process </button></div>
-       </div>
-   </div>
+    <div class="form-group row">
+        <div class="col-md-12 " id="process_div">
+            <button class="btn btn-md pull-right"> Process</button>
+        </div>
+    </div>
+</div>
 </body>
 <script type="text/javascript">
     function PreviewImage() {
