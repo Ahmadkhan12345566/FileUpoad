@@ -1,4 +1,14 @@
+<?php
+require('Core.php');
+use CoreSpace\Core;
+if(isset($_POST['submit_name'])){
+    $path="raw";
+    $path=$_POST['path'];
+    $dirNames=Core::readFiles($path);
+    echo "i readhed";
 
+}
+?>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
