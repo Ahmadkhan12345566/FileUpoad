@@ -1,11 +1,19 @@
+<?php
+require('Core.php');
+use CoreSpace\Core;
+if(isset($_POST['submit_name'])){
+    $path="raw";
+    $path=$_POST['path'];
+    $dirNames=Core::readFiles($path);
+    echo "i readhed";
 
+}
+?>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="container">
@@ -14,8 +22,8 @@
         <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <!-- image-preview-filename input [CUT FROM HERE]-->
             <div class="input-group image-preview">
-                <input type="file" id="browse" name="fileupload" style="display: none" onChange="Handlechange();" />
-                <input type="text" class="form-control image-preview-filename" id="check" /> <!-- don't give a name === doesn't send on POST/GET -->
+                <input type="file" id="browse" name="fileupload" style="display: none" onChange="Handlechange();"/>
+                <input type="text" class="form-control image-preview-filename" id="check"> <!-- don't give a name === doesn't send on POST/GET -->
                 <span class="input-group-btn">
                     <!-- image-preview-input -->
 
@@ -28,29 +36,26 @@
 
 
     <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="col-md-9 col-sm-12 col-lg-9 col-sm-12 col-xs-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Input Form</legend>
                 <div class="row">
-
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                        <a href="#" class="pull-right button-wrapper" ><i class="fa fa-chevron-left fa-4x" aria-hidden="true"></i></a>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%" >
+                        <a href="#" class="pull-right" ><i class="fa fa-chevron-left fa-4x " aria-hidden="true"></i></a>
                     </div>
 
-                    <div class="col-md-10 col-lg-10 col-sm-8 col-xs-8">
-                        <div class="thumbnail">
-                            <img id="display_image" src="raw/s.JPG" alt="Image" />
+                    <div class="col-md-10 col-lg-10 col-sm-10 col-xs-8 ">
+                        <div class="thumbnail"><img id="display_image" src="raw/s.JPG" alt="Image">
                         </div>
                     </div>
-
-                    <div class="col-lg-1 col-md-1 col-xs-2 col-sm-1">
-                        <a href="#" class="pull-left button-wrapper"><i class="fa fa-chevron-right fa-4x" aria-hidden="true"></i></a>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
+                        <a href="#"><i class="fa fa-chevron-right fa-4x p" aria-hidden="true"></i></a>
                     </div>
 
                 </div>
             </fieldset>
-        </div>
 
+        </div>
         <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Extracted Text</legend>
@@ -109,3 +114,6 @@
 
 
 </script>
+</body>
+
+</html>
