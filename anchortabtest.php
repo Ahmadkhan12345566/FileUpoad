@@ -6,6 +6,10 @@ if(isset($_POST['submit_name'])){
     $path=$_POST['path'];
     $dirNames=Core::readFiles($path);
     echo "i readhed";
+    var_dump($dirNames);
+
+}
+elseif(isset($_POST['next'])){
 
 }
 ?>
@@ -14,10 +18,17 @@ if(isset($_POST['submit_name'])){
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="container">
+    <form method="post">
+        <div class="row">
+            <input type="text" name="path">
+            <input type="submit" name="submit_name" >
 
+        </div>
+    </form>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <!-- image-preview-filename input [CUT FROM HERE]-->
