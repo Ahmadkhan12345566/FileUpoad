@@ -3,28 +3,51 @@
 $dirNamesAll = array();
 $dirNames = array();
 $files_to_return = array();
-//echo "i  am hera";
-$path=$_POST['postname'];
+
 $action=$_POST['postaction'];
 if($action=="main"){
-//echo "i am in main";
-
+    $path=$_POST['postname'];
     Core::copydir($path,'raw2');
     $dirNames = Core::readFiles('raw2');
-   //var_dump($dirNames);
     echo "raw2/",$dirNames[0];
 }
 elseif($action=="next"){
+    $path=$_POST['postname'];
     $imgpath=$_POST['postimgname'];
     $imgName=substr($imgpath,5,strlen($imgpath));
     $dirNamesAll= Core::readFiles($path);
     $key = array_search($imgName, $dirNamesAll);
-    Core::copyFile($path,'raw2',$dirNamesAll[$key+1]);
-    $dirNames = Core::readFiles('raw2');
-    echo "raw2/",$dirNames[0];
+    /* if($key+2==sizeof($dirNamesAll)) {
+            Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
+            $dirNames = Core::readFiles('raw2');
+            echo "raw2/", $dirNames[0];
+        }
+        else{*/
+            Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
+            $dirNames = Core::readFiles('raw2');
+            echo "raw2/", $dirNames[0];
+        //}
+
+
 }
 elseif ($action=="previous"){
+    $path=$_POST['postname'];
+    $imgpath=$_POST['postimgname'];
+    $imgName=substr($imgpath,5,strlen($imgpath));
+    $dirNamesAll= Core::readFiles($path);
+    $key = array_search($imgName, $dirNamesAll);
+    Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
+    $dirNames = Core::readFiles('raw2');
+    echo "raw2/", $dirNames[0];
+}
+elseif ($action=="writefile"){
 
+    $filNam =$_POST['postimgname'];
+    $filename=substr($filNam,5,-4);;
+    $name=$_POST['postname'];
+    $fathername=$_POST['postfathername'];
+    $cnic=$_POST['postcnic'];
+    Core::writeFile($filename,$name,$fathername,$cnic);
 }
 else{
     echo "Action Not Found";
@@ -114,6 +137,19 @@ class Core
                 }
         //}
         closedir($dir_handle);
+    }
+
+    public static function writeFile($fileName,$Name,$Fathername,$cnic){
+        $dir_path = "raw/";
+        $ourFileName = $dir_path.$fileName.".txt";
+        $ourFileHandle = fopen($ourFileName, 'w') or die("can't open file");
+        fwrite($ourFileHandle, "Name:  ");
+        fwrite($ourFileHandle, $Name.PHP_EOL);
+        fwrite($ourFileHandle, nl2br("Father Name: "));
+        fwrite($ourFileHandle, $Fathername.PHP_EOL);
+        fwrite($ourFileHandle, "Cnic:  ");
+        fwrite($ourFileHandle, $cnic);
+        echo "done";
     }
 
 

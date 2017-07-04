@@ -1,4 +1,3 @@
-
 <html>
 <head>
 
@@ -9,24 +8,26 @@
 </head>
 <body>
 <div class="container">
-
+    <!--
         <div class="row">
             <input type="text" name="path" id="path">
             <button onclick="post()">click</button>
 
             <p><span id="abc"></span></p>
         </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <!-- image-preview-filename input [CUT FROM HERE]-->
+    -->
+        <div class="row">
+            <div class="col-xs-12 col-md-9 ">
+                <!-- image-preview-filename input [CUT FROM HERE]-->
             <div class="input-group image-preview">
                 <input type="file" id="browse" name="fileupload" style="display: none" onChange="Handlechange();"/>
-                <input type="text" class="form-control image-preview-filename" id="check"> <!-- don't give a name === doesn't send on POST/GET -->
+                <input type="text" class="form-control image-preview-filename" id="path">
+                <!-- don't give a name === doesn't send on POST/GET -->
                 <span class="input-group-btn">
                     <!-- image-preview-input -->
 
-                        <a onclick="HandleBrowseClick();" class="btn  image-preview-input"> <span class="glyphicon glyphicon-folder-open" ></span></a>
+                        <a onclick="post()" class="btn  image-preview-input"> <span
+                                class="glyphicon glyphicon-folder-open"></span></a>
 
                 </span>
             </div><!-- /input-group image-preview [TO HERE]-->
@@ -37,16 +38,18 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Input Form</legend>
                 <div class="row">
-                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%" >
-                        <a href="#" class="pull-right" ><i class="fa fa-chevron-left fa-4x " aria-hidden="true"></i></a>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
+                        <a href="#" class="pull-right" onclick="previousImage()"><i class="fa fa-chevron-left fa-4x "
+                                                                                    aria-hidden="true"></i></a>
                     </div>
 
                     <div class="col-md-10 col-lg-10 col-sm-10 col-xs-8 ">
-                        <div class="thumbnail"><img id="display_image" src="raw/s.JPG" alt="Image">
+                        <div class="thumbnail"><img id="display_image" src="raw/img.png" alt="Image">
                         </div>
                     </div>
                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
-                        <a href="#" id="next" onclick="nextImage()"><i class="fa fa-chevron-right fa-4x p" aria-hidden="true"></i></a>
+                        <a href="#" id="next" onclick="nextImage()"><i class="fa fa-chevron-right fa-4x p"
+                                                                       aria-hidden="true"></i></a>
                     </div>
 
                 </div>
@@ -57,7 +60,8 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Extracted Text</legend>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary "><i class="fa fa-floppy-o " aria-hidden="true"></i>
+                    <button class="btn btn-lg btn-primary " onclick="saveFile()"><i class="fa fa-floppy-o "
+                                                                                    aria-hidden="true"></i>
 
                     </button>
                 </div>
@@ -80,7 +84,7 @@
     </div>
     <div class=" row">
         <div class="col-md-9 " id="process_div">
-            <button class="btn btn-primary pull-right"> Process</button>
+            <button class="btn btn-primary pull-right" onclick="processImage()"> Process</button>
         </div>
     </div>
 </div>
@@ -99,13 +103,11 @@
 
         };
     }
-    function HandleBrowseClick()
-    {
+    function HandleBrowseClick() {
         var fileinput = document.getElementById("browse");
         fileinput.click();
     }
-    function Handlechange()
-    {
+    function Handlechange() {
 
         var fileinput = document.getElementById("browse");
         var textinput = document.getElementById("check");
@@ -115,58 +117,133 @@
 
     function showHint() {
         if (document.getElementById("path").value.length == 0) {
-          //  document.getElementById("txtHint").innerHTML = "";
+            //  document.getElementById("txtHint").innerHTML = "";
             document.getElementById("abc").innerHTML = "abc";
             return;
         } else {
 
             var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
+            xmlhttp.onreadystatechange = function () {
 
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("abc").innerHTML = "i ma";
                 }
             };
-            xmlhttp.open("GET", "core.php?q=" +"", true);
+            xmlhttp.open("GET", "core.php?q=" + "", true);
             xmlhttp.send();
         }
     }
     function onAdd() {
-    $.ajax({ url: 'core.php',
-        data: {action: 'test'},
-        type: 'post',
-        success: function(output) {
-            alert("abc");
-            alert(output);
-        }
-    });
-}
+        $.ajax({
+            url: 'core.php',
+            data: {action: 'test'},
+            type: 'post',
+            success: function (output) {
+                alert("abc");
+                alert(output);
+            }
+        });
+    }
 
-    function post()
-    {
+    function post() {
         var path = $('#path').val();
-        var action="main";
-        $.post('core.php',{postname:path,postaction:action},
-            function(data){
+        var action = "main";
+        $.post('core.php', {postname: path, postaction: action},
+            function (data) {
                 $('#abc').html(data);
-                $("#display_image").attr("src",data);
+                $("#display_image").attr("src", data);
             });
     }
 
     function nextImage() {
+        reset();
         var path = $('#path').val();
-        var action="next";
-        var img=$('#display_image');
-        var imgName=img.attr('src');
-       // $('#abc').html(imgName);
-      //alert("checking"+imgName.attr('src'));
-        $.post('core.php',{postname:path,postaction:action,postimgname:imgName},
-            function(data){
+        var action = "next";
+        var img = $('#display_image');
+        var imgName = img.attr('src');
+        // $('#abc').html(imgName);
+        //alert("checking"+imgName.attr('src'));
+        $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
+            function (data) {
                 $('#abc').html(data);
-                $("#display_image").attr("src",data);
+                $("#display_image").attr("src", data);
 
             });
     }
+
+
+    function previousImage() {
+        reset();
+        var path = $('#path').val();
+        var action = "previous";
+        var img = $('#display_image');
+        var imgName = img.attr('src');
+        $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
+            function (data) {
+                $('#abc').html(data);
+                $("#display_image").attr("src", data);
+
+            });
+    }
+
+    function processImage() {
+        var hammad = {Name: "Hammad Ur Rehma", FatherName: "Altaf Ur Rehman", CnicNO: "6110191709597"};
+        var jav = {Name: "Javed Iqbal", FatherName: "Akbar khan", CnicNO: "1620105566727"};
+        var kamran = {Name: "Muhammad Kamran", FatherName: "Dalail khan", CnicNO: "3720194950671"};
+        var qaism = {Name: "Muhammad Qasim", FatherName: "Mehboob Ellahi", CnicNO: "3110106348705"};
+
+        var img = $('#display_image');
+        var imgaddr = img.attr('src');
+        var imgName = imgaddr.slice(5, imgaddr.length);
+
+        if (imgName == "hammad.jpg") {
+            //alert("i am hera"+imgName);
+            $('#name').val(hammad.Name);
+            $('#father_name').val(hammad.FatherName);
+            $('#cnic_no').val(hammad.CnicNO);
+        }
+        else if (imgName == "Javed.jpg") {
+            $('#name').val(jav.Name);
+            $('#father_name').val(jav.FatherName);
+            $('#cnic_no').val(jav.CnicNO);
+        }
+        else if (imgName == "kamran.jpg") {
+            $('#name').val(kamran.Name);
+            $('#father_name').val(kamran.FatherName);
+            $('#cnic_no').val(kamran.CnicNO);
+        }
+        else if (imgName == "qaism.jpg") {
+            $('#name').val(qaism.Name);
+            $('#father_name').val(qaism.FatherName);
+            $('#cnic_no').val(qaism.CnicNO);
+        }
+    }
+
+    function saveFile() {
+        //alert("ready");
+        var img = $('#display_image');
+        var imgName = img.attr('src');
+        var action = "writefile";
+        var name = $('#name').val();
+
+        var fathername = $('#father_name').val();
+        var cninc = $('#cnic_no').val();
+
+        $.post('core.php', {postimgname:imgName,postname: name, postaction: action, postcnic: cninc, postfathername: fathername},
+            function (data) {
+
+                alert(data);
+                $('#abc').html(data);
+                //$("#display_image").attr("src",data);
+
+            });
+    }
+    function reset() {
+        $('#name').val("");
+        $('#father_name').val("");
+        $('#cnic_no').val("");
+    }
+
 </script>
 </body>
 
