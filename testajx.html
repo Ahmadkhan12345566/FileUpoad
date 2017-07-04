@@ -1,0 +1,41 @@
+<html>
+<head>
+
+</head>
+<body>
+<form>
+   <input type="text" id="name" ><br>
+   <input type="text" id="age"><br>
+    <input type="button" value="Submit" onclick="post()">
+</form>
+<div id="result">
+
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="jquery\jquery-3.2.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="vendor\twbs\bootstrap\dist\js\bootstrap.min.js"></script>
+<script type="text/javascript">
+    function post()
+    {
+        //alert("working");
+        var name = $('#name').val();
+        var age = $('#age').val();
+
+        $.post('validate.php',{postname:name,postage:age},
+            function(data){
+                $('#result').html(data);
+            });
+    }
+</script>
+
+</body>
+
+
+</html>
+
+
+
+
+
