@@ -16,17 +16,15 @@
             <p><span id="abc"></span></p>
         </div>
     -->
-        <div class="row">
-            <div class="col-xs-12 col-md-9 ">
-                <!-- image-preview-filename input [CUT FROM HERE]-->
+    <div class="row">
+        <div class="col-xs-12 col-md-9 ">
+            <!-- image-preview-filename input [CUT FROM HERE]-->
             <div class="input-group image-preview">
-                <input type="file" id="browse" name="fileupload" style="display: none" onChange="Handlechange();"/>
                 <input type="text" class="form-control image-preview-filename" id="path">
                 <!-- don't give a name === doesn't send on POST/GET -->
                 <span class="input-group-btn">
                     <!-- image-preview-input -->
-
-                        <a onclick="post()" class="btn  image-preview-input"> <span
+                        <a onclick="loadImage()" class="btn  image-preview-input"> <span
                                 class="glyphicon glyphicon-folder-open"></span></a>
 
                 </span>
@@ -39,7 +37,7 @@
                 <legend class="scheduler-border"> Input Form</legend>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
-                        <a href="#" class="pull-right" onclick="previousImage()"><i class="fa fa-chevron-left fa-4x "
+                        <a href="#" id="previos" class="pull-right " onclick="previousImage()"><i class="fa fa-chevron-left fa-4x "
                                                                                     aria-hidden="true"></i></a>
                     </div>
 
@@ -60,7 +58,7 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Extracted Text</legend>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary " onclick="saveFile()"><i class="fa fa-floppy-o "
+                    <button class="btn btn-lg btn-primary " onclick="saveInToFile()"><i class="fa fa-floppy-o "
                                                                                     aria-hidden="true"></i>
 
                     </button>
@@ -82,11 +80,7 @@
         </div>
 
     </div>
-    <div class=" row">
-        <div class="col-md-9 " id="process_div">
-            <button class="btn btn-primary pull-right" onclick="processImage()"> Process</button>
-        </div>
-    </div>
+
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -95,12 +89,11 @@
 <script type="text/javascript">
 
     function PreviewImage() {
+        document.getElementById("previos").disabled = true;
         var imgReader = new FileReader();
         imgReader.readAsDataURL(document.getElementById("browse").files[0]);
 
         imgReader.onload = function (oFREvent) {
-            document.getElementById("display_image").src = oFREvent.target.result;
-
         };
     }
     function HandleBrowseClick() {
@@ -145,14 +138,16 @@
         });
     }
 
-    function post() {
+    function loadImage() {
         var path = $('#path').val();
         var action = "main";
         $.post('core.php', {postname: path, postaction: action},
             function (data) {
                 $('#abc').html(data);
                 $("#display_image").attr("src", data);
+                processImage();
             });
+
     }
 
     function nextImage() {
@@ -167,10 +162,11 @@
             function (data) {
                 $('#abc').html(data);
                 $("#display_image").attr("src", data);
+                processImage();
 
             });
-    }
 
+    }
 
     function previousImage() {
         reset();
@@ -182,8 +178,10 @@
             function (data) {
                 $('#abc').html(data);
                 $("#display_image").attr("src", data);
+                processImage();
 
             });
+
     }
 
     function processImage() {
@@ -219,7 +217,7 @@
         }
     }
 
-    function saveFile() {
+    function saveInToFile() {
         //alert("ready");
         var img = $('#display_image');
         var imgName = img.attr('src');
@@ -229,7 +227,13 @@
         var fathername = $('#father_name').val();
         var cninc = $('#cnic_no').val();
 
-        $.post('core.php', {postimgname:imgName,postname: name, postaction: action, postcnic: cninc, postfathername: fathername},
+        $.post('core.php', {
+                postimgname: imgName,
+                postname: name,
+                postaction: action,
+                postcnic: cninc,
+                postfathername: fathername
+            },
             function (data) {
 
                 alert(data);
@@ -243,6 +247,8 @@
         $('#father_name').val("");
         $('#cnic_no').val("");
     }
+
+
 
 </script>
 </body>
