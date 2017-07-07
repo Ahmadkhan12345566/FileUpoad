@@ -1,5 +1,4 @@
 <?php
-//$arg=$_REQUEST["q"];
 $dirNamesAll = array();
 $dirNames = array();
 $files_to_return = array();
@@ -16,17 +15,19 @@ if ($action == "main") {
     $imgName = substr($imgpath, 5, strlen($imgpath));
     $dirNamesAll = Core::readFiles($path);
     $key = array_search($imgName, $dirNamesAll);
-    /* if($key+2==sizeof($dirNamesAll)) {
-            Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
-            $dirNames = Core::readFiles('raw2');
-            echo "raw2/", $dirNames[0];
-        }
-        else{*/
-    Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
-    $dirNames = Core::readFiles('raw2');
-    echo "raw2/", $dirNames[0];
-    //}
-
+    if ($key + 2 == sizeof($dirNamesAll)) {
+        Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
+        $dirNames = Core::readFiles('raw2');
+        $dirNames[1] = "end";
+        $dirNames[0] = "raw2/" . $dirNames[0];
+        echo json_encode($dirNames);
+    } else {
+        Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
+        $dirNames = Core::readFiles('raw2');
+        $dirNames[1] = "cont";
+        $dirNames[0] = "raw2/" . $dirNames[0];
+        echo json_encode($dirNames);
+    }
 
 } elseif ($action == "previous") {
     $path = $_POST['postname'];
@@ -34,9 +35,21 @@ if ($action == "main") {
     $imgName = substr($imgpath, 5, strlen($imgpath));
     $dirNamesAll = Core::readFiles($path);
     $key = array_search($imgName, $dirNamesAll);
-    Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
-    $dirNames = Core::readFiles('raw2');
-    echo "raw2/", $dirNames[0];
+    if ( $key-1==0) {
+        Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
+        $dirNames = Core::readFiles('raw2');
+        $dirNames[1] = "start";
+        $dirNames[0] = "raw2/" . $dirNames[0];
+        echo json_encode($dirNames);
+    } else {
+        Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
+        $dirNames = Core::readFiles('raw2');
+        $dirNames[1] = "cont";
+        $dirNames[0] = "raw2/" . $dirNames[0];
+        echo json_encode($dirNames);
+    }
+
+
 } elseif ($action == "writefile") {
 
     $filNam = $_POST['postimgname'];
@@ -54,11 +67,6 @@ class Core
 {
     public static $menu =
         array('home' => 'index.php',
-            'courses' => 'lectures.php',
-            'labs' => '../labs/hsn/med/index.html',
-            'faculty' => 'faculty.php',
-            'faqs' => 'faq.php',
-            'contactus' => 'contact.php',
             'core' => 'core.php');
 
     public static function readFiles($arg)
@@ -139,22 +147,14 @@ class Core
 
     public static function writeFile($fileName, $Name, $Fathername, $cnic)
     {
-        $dir_path = "raw/";
+        $dir_path = "savefiles/";
         $ourFileName = $dir_path . $fileName . ".csv";
         $ourFileHandle = fopen($ourFileName, 'a+') or die("can't open file");
-        $a=array($Name,$Fathername,$cnic."-",);
+        $a = array($Name, $Fathername, $cnic . "-",);
         fputcsv($ourFileHandle, $a);
-     /*   fwrite($ourFileHandle, "Name:  ");
-        fwrite($ourFileHandle, $Name . PHP_EOL);
-        fwrite($ourFileHandle, nl2br("Father Name: "));
-        fwrite($ourFileHandle, $Fathername . PHP_EOL);
-        fwrite($ourFileHandle, "Cnic:  ");
-        fwrite($ourFileHandle, $cnic);*/
-        echo "done"+$cnic;
+        echo "done" + $cnic;
     }
 
 
 }
-
-
 ?>

@@ -37,17 +37,18 @@
                 <legend class="scheduler-border"> Input Form</legend>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
-                        <a href="#" id="previos" class="pull-right " onclick="previousImage()"><i class="fa fa-chevron-left fa-4x "
-                                                                                    aria-hidden="true"></i></a>
+                        <a href="#" id="previos" class="pull-right " onclick=""><i class="fa fa-chevron-left fa-4x "
+                                                                                   aria-hidden="true"></i></a>
                     </div>
 
                     <div class="col-md-10 col-lg-10 col-sm-10 col-xs-8 ">
                         <div class="thumbnail"><img id="display_image" src="raw/img.png" alt="Image">
                         </div>
                     </div>
-                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
-                        <a href="#" id="next" onclick="nextImage()"><i class="fa fa-chevron-right fa-4x p"
-                                                                       aria-hidden="true"></i></a>
+                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2  " style="margin-top: 25%">
+                        <a href="#" id="next" onclick=""><i id="colorit"
+                                                            class="fa fa-chevron-right fa-4x controlbuttons "
+                                                            aria-hidden="true"></i></a>
                     </div>
 
                 </div>
@@ -59,7 +60,7 @@
                 <legend class="scheduler-border"> Extracted Text</legend>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary " onclick="saveInToFile()"><i class="fa fa-floppy-o "
-                                                                                    aria-hidden="true"></i>
+                                                                                        aria-hidden="true"></i>
 
                     </button>
                 </div>
@@ -89,10 +90,8 @@
 <script type="text/javascript">
 
     function PreviewImage() {
-        document.getElementById("previos").disabled = true;
         var imgReader = new FileReader();
         imgReader.readAsDataURL(document.getElementById("browse").files[0]);
-
         imgReader.onload = function (oFREvent) {
         };
     }
@@ -107,45 +106,16 @@
         textinput.value = fileinput.value;
         PreviewImage();
     }
-
-    function showHint() {
-        if (document.getElementById("path").value.length == 0) {
-            //  document.getElementById("txtHint").innerHTML = "";
-            document.getElementById("abc").innerHTML = "abc";
-            return;
-        } else {
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("abc").innerHTML = "i ma";
-                }
-            };
-            xmlhttp.open("GET", "core.php?q=" + "", true);
-            xmlhttp.send();
-        }
-    }
-    function onAdd() {
-        $.ajax({
-            url: 'core.php',
-            data: {action: 'test'},
-            type: 'post',
-            success: function (output) {
-                alert("abc");
-                alert(output);
-            }
-        });
-    }
-
     function loadImage() {
         var path = $('#path').val();
         var action = "main";
         $.post('core.php', {postname: path, postaction: action},
             function (data) {
-                $('#abc').html(data);
+                //  $('#abc').html(data);
                 $("#display_image").attr("src", data);
                 processImage();
+                disableprevious();
+                enableNext();
             });
 
     }
@@ -156,31 +126,37 @@
         var action = "next";
         var img = $('#display_image');
         var imgName = img.attr('src');
-        // $('#abc').html(imgName);
-        //alert("checking"+imgName.attr('src'));
         $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
             function (data) {
-                $('#abc').html(data);
-                $("#display_image").attr("src", data);
+                $("#display_image").attr("src", data[0]);
+                if (data[1] == "end") {
+                    disableNext();
+                }
+                else {
+                    enableprevious();
+                }
                 processImage();
-
-            });
+            }, "json");
 
     }
 
     function previousImage() {
-        reset();
         var path = $('#path').val();
         var action = "previous";
         var img = $('#display_image');
         var imgName = img.attr('src');
         $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
             function (data) {
-                $('#abc').html(data);
-                $("#display_image").attr("src", data);
+                $("#display_image").attr("src", data[0]);
+                if (data[1] == "start") {
+                    disableprevious();
+                }
+                else {
+                    enableNext();
+                }
                 processImage();
 
-            });
+            }, "json");
 
     }
 
@@ -247,7 +223,18 @@
         $('#father_name').val("");
         $('#cnic_no').val("");
     }
-
+    function enableNext() {
+        $("#next").attr("onclick", "nextImage()");
+    }
+    function disableNext() {
+        $("#next").attr("onclick", "");
+    }
+    function enableprevious() {
+        $("#previos").attr("onclick", "previousImage()");
+    }
+    function disableprevious() {
+        $("#previos").attr("onclick", "");
+    }
 
 
 </script>
