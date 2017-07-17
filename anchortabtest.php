@@ -1,35 +1,76 @@
+<?php
+require 'test.php';
+if(isset($_POST['ok'])){
+    $path=$_POST['path'];
+    echo $path;
+    $dir=array();
+    $dir=Core::readFiles($path);
+    var_dump($dir);
+}
+?>
+
+
 <html>
 <head>
-
     <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .loader {
+
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loader {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
-    <!--
-        <div class="row">
-            <input type="text" name="path" id="path">
-            <button onclick="post()">click</button>
-
-            <p><span id="abc"></span></p>
-        </div>
-    -->
     <div class="row">
-        <div class="col-xs-12 col-md-9 ">
-            <!-- image-preview-filename input [CUT FROM HERE]-->
-            <div class="input-group image-preview">
-                <input type="text" class="form-control image-preview-filename" id="path">
-                <!-- don't give a name === doesn't send on POST/GET -->
-                <span class="input-group-btn">
+        <form method="post">
+            <div class="col-xs-12 col-md-9 ">
+                <!-- image-preview-filename input [CUT FROM HERE]-->
+                <div class="input-group image-preview">
+                    <input type="text" class="form-control image-preview-filename" id="path" name="path">
+                    <!-- don't give a name === doesn't send on POST/GET -->
+                    <span class="input-group-btn">
                     <!-- image-preview-input -->
                         <a onclick="loadImage()" class="btn  image-preview-input"> <span
-                                class="glyphicon glyphicon-folder-open"></span></a>
+                                    class="glyphicon glyphicon-folder-open"></span></a>
 
                 </span>
-            </div><!-- /input-group image-preview [TO HERE]-->
-        </div>
+                </div><!-- /input-group image-preview [TO HERE]-->
+            </div>
+            <input type="submit" name="ok">
+        </form>
     </div>
     <div class="row">
         <div class="col-md-9 col-sm-12 col-lg-9 col-sm-12 col-xs-12">
@@ -61,7 +102,6 @@
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary " onclick="saveInToFile()"><i class="fa fa-floppy-o "
                                                                                         aria-hidden="true"></i>
-
                     </button>
                 </div>
                 <div class="form-group ">
@@ -76,6 +116,10 @@
                     <label for="cnic_no">Cnic NO</label>
                     <input type="text" class="form-control" id="cnic_no">
                 </div>
+                <div class="row ">
+                    <div class="col-md-5 col-sm-5 col-xs-5 col-lg-3"></div>
+                    <div class="loader col-md-5 col-sm-5 col-xs-5 col-lg-5" id="loader"></div>
+                </div>
 
             </fieldset>
         </div>
@@ -87,39 +131,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="vendor\twbs\bootstrap\dist\js\bootstrap.min.js"></script>
+<script src="jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-
-    function PreviewImage() {
-        var imgReader = new FileReader();
-        imgReader.readAsDataURL(document.getElementById("browse").files[0]);
-        imgReader.onload = function (oFREvent) {
-        };
-    }
-    function HandleBrowseClick() {
-        var fileinput = document.getElementById("browse");
-        fileinput.click();
-    }
-    function Handlechange() {
-
-        var fileinput = document.getElementById("browse");
-        var textinput = document.getElementById("check");
-        textinput.value = fileinput.value;
-        PreviewImage();
-    }
     function loadImage() {
         var path = $('#path').val();
         var action = "main";
+        alert("1");
         $.post('core.php', {postname: path, postaction: action},
             function (data) {
-                //  $('#abc').html(data);
+                alert(data);
                 $("#display_image").attr("src", data);
-                processImage();
-                disableprevious();
-                enableNext();
+                processImage("main");
             });
-
     }
-
     function nextImage() {
         reset();
         var path = $('#path').val();
@@ -129,18 +153,11 @@
         $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
             function (data) {
                 $("#display_image").attr("src", data[0]);
-                if (data[1] == "end") {
-                    disableNext();
-                }
-                else {
-                    enableprevious();
-                }
-                processImage();
+                processImage(data[1]);
             }, "json");
-
     }
-
     function previousImage() {
+        reset();
         var path = $('#path').val();
         var action = "previous";
         var img = $('#display_image');
@@ -148,75 +165,85 @@
         $.post('core.php', {postname: path, postaction: action, postimgname: imgName},
             function (data) {
                 $("#display_image").attr("src", data[0]);
-                if (data[1] == "start") {
-                    disableprevious();
-                }
-                else {
-                    enableNext();
-                }
-                processImage();
-
+                //processImage(data[1]);
+                getdata(data[1]);
             }, "json");
-
     }
-
-    function processImage() {
-        var hammad = {Name: "Hammad Ur Rehma", FatherName: "Altaf Ur Rehman", CnicNO: "6110191709597"};
-        var jav = {Name: "Javed Iqbal", FatherName: "Akbar khan", CnicNO: "1620105566727"};
-        var kamran = {Name: "Muhammad Kamran", FatherName: "Dalail khan", CnicNO: "3720194950671"};
-        var qaism = {Name: "Muhammad Qasim", FatherName: "Mehboob Ellahi", CnicNO: "3110106348705"};
-
+    function processImage(loc) {
+        disableprevious();
+        disableNext();
+        $("#loader").show();
         var img = $('#display_image');
+        var action = "process";
         var imgaddr = img.attr('src');
-        var imgName = imgaddr.slice(5, imgaddr.length);
-
-        if (imgName == "hammad.jpg") {
-            //alert("i am hera"+imgName);
-            $('#name').val(hammad.Name);
-            $('#father_name').val(hammad.FatherName);
-            $('#cnic_no').val(hammad.CnicNO);
+        var imgName = imgaddr.slice(12, imgaddr.length);
+        $.post('core.php', {postaction: action, postimgname: imgName},
+            function (data) {
+                action = "getdata";
+                $.post('core.php', {postaction: action, postimgname: imgName},
+                    function (data) {
+                        $('#loader').hide();
+                        $('#name').val(data[0]);
+                        $('#father_name').val(data[1]);
+                        $('#cnic_no').val(data[2]);
+                        setbuttons(loc);
+                    }, "json");
+            });
+    }
+    function getdata(loc) {
+        disableprevious();
+        disableNext();
+        $("#loader").show();
+        var img = $('#display_image');
+        var action = "process";
+        var imgaddr = img.attr('src');
+        var imgName = imgaddr.slice(12, imgaddr.length);
+        action = "getdata";
+        $.post('core.php', {postaction: action, postimgname: imgName},
+            function (data) {
+                $('#loader').hide();
+                $('#name').val(data[0]);
+                $('#father_name').val(data[1]);
+                $('#cnic_no').val(data[2]);
+                setbuttons(loc);
+            }, "json");
+    }
+    function setbuttons(setbuton) {
+        if (setbuton == "main") {
+            disableprevious();
+            enableNext();
         }
-        else if (imgName == "Javed.jpg") {
-            $('#name').val(jav.Name);
-            $('#father_name').val(jav.FatherName);
-            $('#cnic_no').val(jav.CnicNO);
+        else if (setbuton == "start") {
+            disableprevious();
+            enableNext();
         }
-        else if (imgName == "kamran.jpg") {
-            $('#name').val(kamran.Name);
-            $('#father_name').val(kamran.FatherName);
-            $('#cnic_no').val(kamran.CnicNO);
+        else if (setbuton == "end") {
+            disableNext();
+            enableprevious();
         }
-        else if (imgName == "qaism.jpg") {
-            $('#name').val(qaism.Name);
-            $('#father_name').val(qaism.FatherName);
-            $('#cnic_no').val(qaism.CnicNO);
+        else {
+            enableNext();
+            enableprevious();
         }
     }
-
     function saveInToFile() {
-        //alert("ready");
         var img = $('#display_image');
         var imgName = img.attr('src');
         var action = "writefile";
         var name = $('#name').val();
-
         var fathername = $('#father_name').val();
         var cninc = $('#cnic_no').val();
 
         $.post('core.php', {
-                postimgname: imgName,
-                postname: name,
-                postaction: action,
-                postcnic: cninc,
-                postfathername: fathername
-            },
-            function (data) {
-
-                alert(data);
-                $('#abc').html(data);
-                //$("#display_image").attr("src",data);
-
-            });
+            postimgname: imgName,
+            postname: name,
+            postaction: action,
+            postcnic: cninc,
+            postfathername: fathername
+        }, function (data) {
+            alert(data);
+            $('#abc').html(data);
+        });
     }
     function reset() {
         $('#name').val("");
@@ -235,8 +262,6 @@
     function disableprevious() {
         $("#previos").attr("onclick", "");
     }
-
-
 </script>
 </body>
 

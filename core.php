@@ -1,65 +1,104 @@
 <?php
+namespace CoreSpace;
+$ReadedFileNames = array();
 $dirNamesAll = array();
 $dirNames = array();
-$files_to_return = array();
-
+$path = "raw2";
 $action = $_POST['postaction'];
 if ($action == "main") {
-    $path = $_POST['postname'];
-    Core::copydir($path, 'raw2');
-    $dirNames = Core::readFiles('raw2');
-    echo "raw2/", $dirNames[0];
+    //$path = $_POST['postname'];
+    Core::deleteTxtFile();
+    Core::copydir($path, 'for_testing');
+    $dirNames = Core::readFiles('for_testing');
+
+    echo "for_testing/", $dirNames[0];
 } elseif ($action == "next") {
-    $path = $_POST['postname'];
+    //$path = $_POST['postname'];
     $imgpath = $_POST['postimgname'];
-    $imgName = substr($imgpath, 5, strlen($imgpath));
+    $imgName = substr($imgpath, 12, strlen($imgpath));
     $dirNamesAll = Core::readFiles($path);
     $key = array_search($imgName, $dirNamesAll);
     if ($key + 2 == sizeof($dirNamesAll)) {
-        Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
-        $dirNames = Core::readFiles('raw2');
+        Core::copyFile($path, 'for_testing', $dirNamesAll[$key + 1]);
+        $dirNames = Core::readFiles('for_testing');
         $dirNames[1] = "end";
-        $dirNames[0] = "raw2/" . $dirNames[0];
+        $ReadedFileNames[] = $dirNames[0];
+        $dirNames[0] = "for_testing/" . $dirNames[0];
         echo json_encode($dirNames);
     } else {
-        Core::copyFile($path, 'raw2', $dirNamesAll[$key + 1]);
-        $dirNames = Core::readFiles('raw2');
+        Core::copyFile($path, 'for_testing', $dirNamesAll[$key + 1]);
+        $dirNames = Core::readFiles('for_testing');
         $dirNames[1] = "cont";
-        $dirNames[0] = "raw2/" . $dirNames[0];
+        //$ReadedFileNames[]=$dirNames[0];
+        $dirNames[0] = "for_testing/" . $dirNames[0];
         echo json_encode($dirNames);
     }
 
 } elseif ($action == "previous") {
-    $path = $_POST['postname'];
+    //$path = $_POST['postname'];
     $imgpath = $_POST['postimgname'];
-    $imgName = substr($imgpath, 5, strlen($imgpath));
+    $imgName = substr($imgpath, 12, strlen($imgpath));
     $dirNamesAll = Core::readFiles($path);
     $key = array_search($imgName, $dirNamesAll);
-    if ( $key-1==0) {
-        Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
-        $dirNames = Core::readFiles('raw2');
+    if ($key - 1 == 0) {
+        Core::copyFile($path, 'for_testing', $dirNamesAll[$key - 1]);
+        $dirNames = Core::readFiles('for_testing');
         $dirNames[1] = "start";
-        $dirNames[0] = "raw2/" . $dirNames[0];
+        $dirNames[0] = "for_testing/" . $dirNames[0];
         echo json_encode($dirNames);
     } else {
-        Core::copyFile($path, 'raw2', $dirNamesAll[$key - 1]);
-        $dirNames = Core::readFiles('raw2');
+        Core::copyFile($path, 'for_testing', $dirNamesAll[$key - 1]);
+        $dirNames = Core::readFiles('for_testing');
         $dirNames[1] = "cont";
-        $dirNames[0] = "raw2/" . $dirNames[0];
+        $dirNames[0] = "for_testing/" . $dirNames[0];
+        //$dirNames[0] = "for_testing/" . $ReadedFileNames[0];
         echo json_encode($dirNames);
     }
 
-
 } elseif ($action == "writefile") {
-
     $filNam = $_POST['postimgname'];
-    $filename = substr($filNam, 5, -4);;
+    $filename = substr($filNam, 12, -4);;
     $name = $_POST['postname'];
     $fathername = $_POST['postfathername'];
     $cnic = $_POST['postcnic'];
     Core::writeFile($filename, $name, $fathername, $cnic);
+
+} elseif ($action == "process") {
+    $imgName = $_POST['postimgname'];
+    Core::sentImagetoExe($imgName);
+    $name = substr($imgName, 0, -4);
+    echo"a";
+    // if(file_exists("for_testing/" . $name . ".txt")) {
+     //   echo  "not working";
+    //}
+    //else{
+      //  echo  "You Input a Wrong Image";
+    //}
+} elseif ($action == "getdata") {
+    $status=$_POST['poststatus'];
+    $imgName = $_POST['postimgname'];
+    $dataFormFile = array();
+    $name = substr($imgName, 0, -4);
+    if($status=="revise") {
+        if (file_exists("for_testing/" . $name . ".txt")) {
+            $dataFormFile = Core::readDataFromFile($name);
+        } else {
+            $dataFormFile[0] = "notexists";   //this is for movining in process forms
+        }
+        echo json_encode($dataFormFile);
+    }
+    else{
+        if (file_exists("for_testing/" . $name . ".txt")) {
+            $dataFormFile = Core::readDataFromFile($name);
+        } else {
+            $dataFormFile[0] = "notexists";   //this is for movining in process forms
+        }
+        echo json_encode($dataFormFile);
+    }
+
+
 } else {
-    echo "Action Not Found";
+    echo "notexists";
 }
 
 
@@ -67,7 +106,8 @@ class Core
 {
     public static $menu =
         array('home' => 'index.php',
-            'core' => 'core.php');
+            'core' => 'core.php',
+            'anchor' => 'anchortabtest.php');
 
     public static function readFiles($arg)
     {
@@ -105,7 +145,7 @@ class Core
         $dir_handle = @opendir($source) or die("Unable to open");
         while ($file = readdir($dir_handle)) {
             if ($file != "." && $file != ".." && !is_dir("$source/$file"))
-                if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'jpg' || strtolower(substr($file, strrpos($file, '.') + 1)) == 'png') {
+                if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'jpg' || strtolower(substr($file, strrpos($file, '.') + 1)) == 'jpg') {
 
                     self::copyFile($source, $destination, $file);
                     break;
@@ -115,16 +155,38 @@ class Core
         closedir($dir_handle);
     }
 
-
     public static function deleteFile()
     {
-        $files = glob('raw2/*');
+        $files = glob('for_testing/*');
         foreach ($files as $file) { // iterate files
             if (is_file($file))
-                unlink($file); // delete file
+                if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'jpg') {
+                    unlink($file); // delete file
+                }
         }
     }
 
+    public static function deleteTxtFile()
+    {
+        $files = glob('for_testing/*');
+        foreach ($files as $file) { // iterate files
+            if (is_file($file))
+                if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'txt') {
+                    if ($file != "requiredmcrproducts.txt" && $file != "readme.txt" && $file != "mccexcludedfiles.log") {
+                        unlink($file); // delete file
+                    }
+                }
+        }
+    }
+   public static function deleteUploadedfiles(){
+       $files = glob('raw2/*');
+       foreach ($files as $file) { // iterate files
+           if (is_file($file))
+               if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'jpg') {
+                   unlink($file); // delete file
+               }
+       }
+   }
 
     public static function copyFile($source, $destination, $file)
     {
@@ -147,14 +209,49 @@ class Core
 
     public static function writeFile($fileName, $Name, $Fathername, $cnic)
     {
-        $dir_path = "savefiles/";
+        $fileName="results";
+        $dir_path = "./savefiles/";
         $ourFileName = $dir_path . $fileName . ".csv";
         $ourFileHandle = fopen($ourFileName, 'a+') or die("can't open file");
-        $a = array($Name, $Fathername, $cnic . "-",);
+        $a = array($Name, $Fathername, $cnic,);
         fputcsv($ourFileHandle, $a);
-        echo "done" + $cnic;
     }
 
+    public static function sentImagetoExe($imag)
+    {
+        system("cmd /c executecode.bat $imag");
+
+    }
+
+    public static function readDataFromFile($file)
+    {
+        $handle = fopen("for_testing/" . $file . ".txt", "r");
+        $dataInLine = array();
+
+            if ($handle) {
+                while (($line = fgets($handle)) !== false) {
+                    $dataInLine[] = $line;
+                }
+                fclose($handle);
+                //           self::deleteTxtFile();
+                return $dataInLine;
+            }
+
+        return $dataInLine;
+
+
+    }
+
+    public static function uploadImages($files)
+    {
+        $myFile = $files['fileupload'];
+        $fileCount = count($myFile["name"]);
+        for ($i = 0; $i < $fileCount; $i++) {
+            $target = 'for_testing/' . $files['fileupload']['name'][$i];
+            move_uploaded_file($files['fileupload']['tmp_name'][$i], $target);
+        }
+    }
 
 }
+
 ?>
