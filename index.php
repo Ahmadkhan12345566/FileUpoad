@@ -7,7 +7,8 @@
         #loader {
             display: none;
         }
-        body{
+
+        body {
             padding: 0%;
             margin: 0%;
         }
@@ -19,7 +20,8 @@
     <div class="row">
         <div class="col-md-2 col-lg-2 col-sm-3 col-xs-4">
             <a id="samplelink" title="sampleform" href='#' download>
-                <button id="sample" onclick="downloadsampalform()" class="btn btn-primary form-control">Sample Form <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></button>
+                <button id="sample" onclick="downloadsampalform()" class="btn btn-primary form-control">Sample Form
+                    <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></button>
 
             </a>
         </div>
@@ -28,7 +30,7 @@
                 <!-- image-preview-filename input [CUT FROM HERE]-->
                 <div class="input-group image-preview">
                     <input type="file" id="browse" name="fileupload[]" accept="image/*" style="display: none" multiple
-                           onChange="Handlechange();"/>
+                          />
                     <input type="text" class="form-control image-preview-filename" id="check" title="selected files">
                     <!-- don't give a name === doesn't send on POST/GET -->
                     <span class="input-group-btn">
@@ -54,7 +56,8 @@
                     </div>
 
                     <div class="col-md-10 col-lg-10 col-sm-10 col-xs-8 ">
-                        <div class="thumbnail"><img id="display_image" style="width: 100%; height: auto  width: auto\9;" src="raw/img.png" alt="Image">
+                        <div class="thumbnail"><img id="display_image" style="width: 100%; height: auto  width: auto\9;"
+                                                    src="raw/img.png" alt="Image">
                         </div>
                     </div>
                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2  " style="margin-top: 25%">
@@ -71,9 +74,9 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> Extracted Text</legend>
                 <div class="form-group">
-                        <a href='savefiles/results.csv' title="Results">
-                            <button class="btn btn-primary form-control">Download Processed Results</button>
-                        </a>
+                    <a href='savefiles/results.csv' title="Results">
+                        <button class="btn btn-primary form-control">Download Processed Results</button>
+                    </a>
                 </div>
                 <div class="form-group ">
                     <label for="name">Name</label>
@@ -113,19 +116,21 @@
         var fileinput = document.getElementById("browse");
         fileinput.click();
     }
-    function Handlechange() {
-        var fileinput = document.getElementById("browse");
-        var textinput = document.getElementById("check");
-        textinput.value = fileinput.value;
-    }
+
 
     function loadImage() {
         var action = "main";
         $.post('core.php', {postaction: action},
             function (data) {
-                $("#display_image").attr("src", data);
-                processImage("main");
-            });
+                if (data[1]=="one") {
+                    $("#display_image").attr("src", data[0]);
+                    processImage("maindac");
+                }
+                else {
+                    $("#display_image").attr("src", data[0]);
+                    processImage("main");
+                }
+            }, "json");
     }
     function nextImage() {
         reset();
@@ -136,8 +141,8 @@
             function (data) {
                 $("#display_image").attr("src", data[0]);
                 //processImage(data[1]);
-                Status="revise";
-                getdata(data[1],Status);
+                Status = "revise";
+                getdata(data[1], Status);
             }, "json");
     }
 
@@ -150,12 +155,10 @@
             function (data) {
                 $("#display_image").attr("src", data[0]);
                 //processImage(data[1]);
-                Status="revise";
-                getdata(data[1],Status);
+                Status = "revise";
+                getdata(data[1], Status);
             }, "json");
     }
-
-
     function processImage(loc) {
         disableprevious();
         disableNext();
@@ -166,15 +169,15 @@
         var imgName = imgaddr.slice(12, imgaddr.length);
         $.post('core.php', {postaction: action, postimgname: imgName},
             function (data) {
-            if(data=="a"){
-                alert("You Input a Wrong Image");
-            }
-            else {
-              getdata(loc);
-            }
+                if (data == "wronginput") {
+                    alert("You Input a Wrong Image");
+                }
+                else {
+                    getdata(loc);
+                }
             });
     }
-    function getdata(loc,status) {
+    function getdata(loc, status) {
         disableprevious();
         disableNext();
         $("#loader").show();
@@ -183,10 +186,10 @@
         var imgaddr = img.attr('src');
         var imgName = imgaddr.slice(12, imgaddr.length);
 
-        if(status=="revise") {
-            stat="review";
+        if (status == "revise") {
+            stat = "review";
             action = "getdata";
-            $.post('core.php', {postaction: action, postimgname: imgName,poststatus: stat},
+            $.post('core.php', {postaction: action, postimgname: imgName, poststatus: stat},
                 function (data) {
                     if (data[0] == "notexists") {
                         processImage(loc);
@@ -202,9 +205,9 @@
                 }, "json");
         }
         else {
-            stat="newcreated"
+            stat = "newcreated"
             action = "getdata";
-            $.post('core.php', {postaction: action, postimgname: imgName,poststatus: stat},
+            $.post('core.php', {postaction: action, postimgname: imgName, poststatus: stat},
                 function (data) {
                     if (data[0] == "notexists") {
                         $('#loader').hide();
@@ -219,13 +222,17 @@
                         //       saveInToFile();
                         setbuttons(loc);
                     }
-        }, "json");
+                }, "json");
         }
     }
     function setbuttons(setbuton) {
         if (setbuton == "main") {
             disableprevious();
             enableNext();
+        }
+        else if (setbuton == "maindac") {
+            disableprevious();
+            disableNext();
         }
         else if (setbuton == "start") {
             disableprevious();
@@ -255,7 +262,7 @@
             postcnic: cninc,
             postfathername: fathername
         }, function (data) {
-          //  alert(data);
+            //  alert(data);
         });
     }
 
@@ -291,12 +298,13 @@
 
 require('Del.php');
 use DelSpace\del;
+
 if (isset($_POST['uplaod'])) {
     //   Core::deleteFile();
     $destination = "for_testing";
     $myFile = $_FILES['fileupload'];
     $fileCount = count($myFile["name"]);
-    if($fileCount>=1){
+    if ($fileCount >= 1) {
         del::deleteUploadedfiles();
     }
     for ($i = 0; $i < $fileCount; $i++) {

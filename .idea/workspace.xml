@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8541d3a-414a-4f5b-8c0b-03e18e41c0b7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Ahmad_khan.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Del.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/anchortabtest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calu.exe" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/for_testing/readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/for_testing/requiredMCRProducts.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/for_testing/splash.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/savefiles/Javed.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/savefiles/hammad.csv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/raw/img.png" afterPath="$PROJECT_DIR$/raw/img.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/for_testing/hammad.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CSS/style.css" afterPath="$PROJECT_DIR$/CSS/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.php" afterPath="$PROJECT_DIR$/core.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/executecode.bat" afterPath="$PROJECT_DIR$/executecode.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testexe.php" afterPath="$PROJECT_DIR$/testexe.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/for_testing/out.txt" afterPath="$PROJECT_DIR$/for_testing/out.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +23,10 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="290" column="0" lean-forward="true" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="50" column="33" lean-forward="false" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
               <folding>
-                <element signature="e#2722#2771#0#HTML" expanded="true" />
-                <marker date="1500299890322" expanded="true" signature="11068:11105" ph="..." />
+                <marker date="1500377596076" expanded="true" signature="11309:11346" ph="..." />
               </folding>
             </state>
           </provider>
@@ -47,10 +35,10 @@
       <file leaf-file-name="core.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="82" column="59" lean-forward="true" selection-start-line="82" selection-start-column="59" selection-end-line="82" selection-end-column="59" />
+            <state relative-caret-position="338">
+              <caret line="233" column="63" lean-forward="true" selection-start-line="233" selection-start-column="63" selection-end-line="233" selection-end-column="63" />
               <folding>
-                <element signature="e#3668#4819#0#PHP" expanded="false" />
+                <element signature="e#3978#5129#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -129,6 +117,7 @@
       <find>action</find>
       <find>notexists</find>
       <find>not</find>
+      <find>a</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,8 +141,8 @@
         <option value="$PROJECT_DIR$/main.php" />
         <option value="$PROJECT_DIR$/Del.php" />
         <option value="$PROJECT_DIR$/anchortabtest.php" />
-        <option value="$PROJECT_DIR$/core.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/core.php" />
       </list>
     </option>
   </component>
@@ -185,6 +174,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -242,7 +232,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -386,12 +375,13 @@
       <workItem from="1499925465150" duration="8870000" />
       <workItem from="1499942207058" duration="9825000" />
       <workItem from="1500013843746" duration="16066000" />
-      <workItem from="1500283501153" duration="10563000" />
+      <workItem from="1500283501153" duration="11200000" />
+      <workItem from="1500372029302" duration="6695000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239954000" />
+    <option name="totallyTimeSpent" value="247286000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -404,7 +394,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1616" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0063091484" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -674,21 +664,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="290" column="0" lean-forward="true" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
+        <state relative-caret-position="425">
+          <caret line="50" column="33" lean-forward="false" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
           <folding>
-            <element signature="e#2722#2771#0#HTML" expanded="true" />
-            <marker date="1500299890322" expanded="true" signature="11068:11105" ph="..." />
+            <marker date="1500377596076" expanded="true" signature="11309:11346" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="82" column="59" lean-forward="true" selection-start-line="82" selection-start-column="59" selection-end-line="82" selection-end-column="59" />
+        <state relative-caret-position="338">
+          <caret line="233" column="63" lean-forward="true" selection-start-line="233" selection-start-column="63" selection-end-line="233" selection-end-column="63" />
           <folding>
-            <element signature="e#3668#4819#0#PHP" expanded="false" />
+            <element signature="e#3978#5129#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -10,8 +10,17 @@ if ($action == "main") {
     Core::deleteTxtFile();
     Core::copydir($path, 'for_testing');
     $dirNames = Core::readFiles('for_testing');
-
-    echo "for_testing/", $dirNames[0];
+    $AlldirNames = Core::readFiles('raw2');
+    if(sizeof($AlldirNames)==1){
+       $dirNames[1]="one";
+       $dirNames[0]="for_testing/".$dirNames[0];
+        echo json_encode($dirNames);
+    }
+    else {
+        $dirNames[1]=sizeof($dirNames);
+        $dirNames[0]="for_testing/".$dirNames[0];
+        echo json_encode($dirNames);
+    }
 } elseif ($action == "next") {
     //$path = $_POST['postname'];
     $imgpath = $_POST['postimgname'];
@@ -67,7 +76,7 @@ if ($action == "main") {
     $imgName = $_POST['postimgname'];
     Core::sentImagetoExe($imgName);
     $name = substr($imgName, 0, -4);
-    echo"a";
+    echo "wronginput";
     // if(file_exists("for_testing/" . $name . ".txt")) {
      //   echo  "not working";
     //}
@@ -219,8 +228,15 @@ class Core
 
     public static function sentImagetoExe($imag)
     {
+        $name = substr($imag, 0, -4);
         system("cmd /c executecode.bat $imag");
+/*        while(1) {
+            if (file_exists("for_testing/" . $name . ".txt")) {
+                system("cmd /c terminteexe.bat");
+                break;
+            }
 
+        }*/
     }
 
     public static function readDataFromFile($file)
