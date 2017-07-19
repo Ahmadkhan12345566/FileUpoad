@@ -50,7 +50,7 @@
                 <legend class="scheduler-border"> Input Form</legend>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-2 button_div " style="margin-top: 25%">
-                        <a href="#" id="previos" class="pull-right " onclick="saveInToFile()"><i
+                        <a href="#" id="previos" class="pull-right " ><i
                                     class="fa fa-chevron-left fa-4x "
                                     aria-hidden="true"></i></a>
                     </div>
@@ -219,7 +219,7 @@
                         $('#name').val(data[0]);
                         $('#father_name').val(data[1]);
                         $('#cnic_no').val(data[2]);
-                        //       saveInToFile();
+                               saveInToFile();
                         setbuttons(loc);
                     }
                 }, "json");
@@ -308,7 +308,12 @@ if (isset($_POST['uplaod'])) {
         del::deleteUploadedfiles();
     }
     for ($i = 0; $i < $fileCount; $i++) {
-        $target = 'raw2/' . $_FILES['fileupload']['name'][$i];
+
+
+        $info = pathinfo($_FILES['fileupload']['name'][$i]);
+        $ext = $info['extension']; // get the extension of the file
+        $newname = "newname".$i.".".$ext;
+        $target = 'raw2/'.$newname;;
         move_uploaded_file($_FILES['fileupload']['tmp_name'][$i], $target);
     }
     echo '<script type="text/javascript">

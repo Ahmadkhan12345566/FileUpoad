@@ -229,7 +229,7 @@ class Core
     public static function sentImagetoExe($imag)
     {
         $name = substr($imag, 0, -4);
-        system("cmd /c executecode.bat $imag");
+        system("cmd /c executecode.bat $imag $name");
 /*        while(1) {
             if (file_exists("for_testing/" . $name . ".txt")) {
                 system("cmd /c terminteexe.bat");
