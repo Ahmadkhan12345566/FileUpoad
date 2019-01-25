@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-apache2 css/
+web: vendor/ css/
