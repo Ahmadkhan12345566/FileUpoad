@@ -1,4 +1,3 @@
-require __DIR__ . '/vendor/autoload.php';
 {
     "require": {
         "twbs/bootstrap": "^3.3"
