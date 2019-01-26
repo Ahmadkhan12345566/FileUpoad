@@ -1,6 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="https://github.com/Ahmadkhan12345566/FileUpoad/blob/master/vendor/twbs/bootstrap/dist/css/bootstrap.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">    
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
