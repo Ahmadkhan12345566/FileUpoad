@@ -1,11 +1,13 @@
 {
-    "require": {
-        "twbs/bootstrap": "^3.3"
-    }
-    "scripts": {
-        "post-install-cmd": [
-                 "chmod -R 777 vendor",
-        ],
+  "require": {
+      "twbs/bootstrap": "^3.3"
+    },
+
+  "scripts": {
+      "post-install-cmd": [
+        "ln -s vendor vs",
+        "chmod -R 777 vs font-awesome-4.7.0/* for_testing/* jquery/* CSS/* savefiles/*"
+        ]
       }
     
 }
